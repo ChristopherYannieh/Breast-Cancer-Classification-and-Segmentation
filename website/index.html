@@ -1,0 +1,156 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Breast Cancer Classification</title>
+
+    <style>
+        body {
+            padding: 50px 100px;
+            font-family:Arial, Helvetica, sans-serif
+        }
+
+        h1 {
+            font-size: 50px;
+            color: hotpink;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+        h2{
+            font-size: 20px;
+            text-align: center;
+            color: rgb(253, 253, 253);
+            background-color: hotpink;
+            border-radius: 20px;
+            padding: 30px 15px;
+            line-height: 40px;
+            margin-bottom: 20px;
+        }
+        form{
+            text-align: center;
+            
+        }
+        form label span.one{
+        
+        }
+        form span{
+            font-size: 13px ;
+
+        }
+        form .submit{
+            margin-left: 50px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #00b7ff;
+            background-color: transparent;
+            border:3px solid #00b7ff;
+            border-radius: 30px;
+            padding: 10px 30px;
+            transition: 0.3s ease all ;
+
+        }
+        form .submit:hover{
+            color: white;
+            background-color: #00b7ff;
+            border:3px solid #00b7ff;
+        }
+
+        input[type="file"]::file-selector-button {
+            background-color: #00b7ff ;
+            color: white;
+            padding: 10px 30px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: bold;
+            border:3px solid #00b7ff; 
+            margin-right: 10px;
+            transition: 0.3s ease all ;
+
+        }
+        
+        input[type="file"]::file-selector-button:hover {
+            background-color: white;    
+            color: #00b7ff;
+        }    
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: hotpink;
+        }
+
+        li {
+            float: left;
+        }
+
+        li:last-child {
+            border-right: none;
+        }
+
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 20px 10px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <ul>
+		<li><b><a href="index.html">Home</a></b></li>
+		<li><b><a href="info.html">Awarness</a></b></li>
+    </ul>
+
+    <h1><b>Breast Cancer Classification and Segmentation</b></h1>
+
+
+    <h2>
+        Breast Cancer, the second-leading cause of cancer deaths in women, is the disease women fear most. <br>
+        Breast cancer can also occur in men, but it is far less common than in women. <br>
+        With the advance of technology and machinery, the fear of this disease is becoming less, but it doesn't lessen it's danger. <br>
+        This website is used to segment tumor, if present, in an ultrasound and classify it as benign or malignant. <br>
+        Click on "Choose file", to be able to upload the ultrasound image, then click on "Submit", to be able to process the photo.
+    </h2>
+
+
+    <form  method="POST" action="/" enctype="multipart/form-data">
+        <input type="file" id="myFile" name="file" onclick="document.getElementById('myFile').style.width = '160px'"> 
+        <span id="file-upload-filename"></span>
+        <input type="submit" class="submit">
+    </form>
+
+    <center><p>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            Diagnosis for the following image is: <u><h3 style="color:#00b7ff;">{{ messages[0] }}</h3></u><br>
+            <img src="{{ messages[1] }}" width="256", height="256">
+            <img src="{{ messages[2] }}" width="256", height="256">
+          {% endif %}
+        {% endwith %}
+    </p></center>
+
+    <script>
+        var input = document.getElementById('myFile');
+        var infoArea = document.getElementById('file-upload-filename');
+
+        input.addEventListener('change', showFileName);
+
+        function showFileName(event) {
+            var input = event.srcElement;
+            var fileName = input.files[0].name;
+            infoArea.textContent =   fileName;
+        }
+    </script>
+
+
+
+</body>
+
+</html>
